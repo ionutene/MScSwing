@@ -1,6 +1,6 @@
 ## File-based project format:
 
-*.xml
+*.iml
 
 *.log
 
@@ -16,6 +16,5 @@
 
 /.idea/
 
-.gitignoregitignore
 
-.xml
+
