@@ -1,0 +1,21 @@
+## File-based project format:
+
+*.xml
+
+*.log
+
+*.7z
+
+*.zip
+
+
+
+# IntelliJ
+
+/target/
+
+/.idea/
+
+.gitignoregitignore
+
+.xml
