@@ -37,17 +37,15 @@ public class CSVParser {
                     if (formulas.get(header) != null) {
                         Set<String> oldKeys = formulas.get(header);
                         if (row.get(header).equalsIgnoreCase("x")) {
-//                          TODO Actually add the correct value
                             oldKeys.add(headers[(mapReader.getRowNumber() - 2)]);
                         }
                         formulas.put(header, oldKeys);
                     } else {
-                        Set<String> oldKeys = new HashSet<>();
+                        Set<String> newKeys = new HashSet<>();
                         if (row.get(header).equalsIgnoreCase("x")) {
-//                          TODO Actually add the correct value
-                            oldKeys.add(headers[(mapReader.getRowNumber() - 2)]);
+                            newKeys.add(headers[(mapReader.getRowNumber() - 2)]);
                         }
-                        formulas.put(header, oldKeys);
+                        formulas.put(header, newKeys);
                     }
                 }
             }
