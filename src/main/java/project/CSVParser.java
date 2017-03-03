@@ -18,7 +18,7 @@ public class CSVParser {
     static Map<String, Set<String>> result = new LinkedHashMap<>();
     static String[] headers = null;
 
-    private static Map<String, Set<String>> readWithCsvMapReader() throws IOException {
+    public static Map<String, Set<String>> readWithCsvMapReader() throws IOException {
         ICsvMapReader mapReader = null;
         InputStream io = CSVParser.class.getResourceAsStream(CSV_FILENAME);
         Reader featIO = new InputStreamReader(io);

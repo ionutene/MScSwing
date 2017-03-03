@@ -1,13 +1,21 @@
 package project;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         Route route = new Route();
         String[][] matrix = Matrix.getMatrix();
         Map<String, String[]> routes = route.getRoute(matrix);
+
+        try {
+            Map<String, Set<String>> formulas = CSVParser.readWithCsvMapReader();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("__________________________________1__________________________________");
 
