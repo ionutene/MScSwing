@@ -5,11 +5,9 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Matrix read = new Matrix();
-        Route mp = new Route();
-        StringBuilder sb = read.sb();
-        String[][] matrix = read.getMatrix();
-        Map<String, String[]> route = mp.getRoute(matrix);
+        Route route = new Route();
+        String[][] matrix = Matrix.getMatrix();
+        Map<String, String[]> routes = route.getRoute(matrix);
 
         System.out.println("__________________________________1__________________________________");
 
@@ -21,9 +19,9 @@ public class Main {
         }
         int size = 0;
         System.out.println("__________________________________2__________________________________");
-        for (String b : route.keySet()) {
+        for (String b : routes.keySet()) {
             //Arrays.toString(Object[] a)
-            System.out.println("K(" + b + ")= " + Arrays.asList(route.get(b)));
+            System.out.println("K(" + b + ")= " + Arrays.asList(routes.get(b)));
             size++;
         }
 
@@ -31,7 +29,7 @@ public class Main {
         int i = 0;
         //System.out.println(sb);
         String[] set = new String[size];
-        for (String b : route.keySet()) {
+        for (String b : routes.keySet()) {
             set[i] = b;
             i++;
         }
