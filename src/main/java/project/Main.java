@@ -1,23 +1,24 @@
 package project;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        Route route = new Route();
-        String[][] matrix = Matrix.getMatrix();
-        Map<String, String[]> routes = route.getRoute(matrix);
 
         try {
             Map<String, Set<String>> formulas = CSVParser.readWithCsvMapReader();
+//            System.out.println(formulas);
+            Combinations combinations = new Combinations(formulas.keySet());
+            combinations.doAllNonRepetitiveCombinationsBetweenIndices(2, 2);
+            RouteVerification routeVerification = new RouteVerification(combinations.getFinalElements(), formulas);
+            routeVerification.doRouteVerifications();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("__________________________________1__________________________________");
+        /*System.out.println("__________________________________1__________________________________");
 
         for (String[] str : matrix) {
             for (String elem : str) {
@@ -44,11 +45,10 @@ public class Main {
         Subset m = new Subset();
         m.printSubsets(set);
 
-        System.out.println("__________________________________Final______________________________");
+        System.out.println("__________________________________Final______________________________");*/
 
 
     }
-
 
 
 }
