@@ -22,12 +22,16 @@ public class RouteVerification {
                 containerSet.addAll(routePossibilities.get(key));
             }
             Set<String> containerSetClone = new LinkedHashSet<>(containerSet);
-            if (!containerSetClone.retainAll(combinationClone)) {
+            containerSetClone.retainAll(combinationClone);
+            System.out.println("=================================================");
+            if (containerSetClone.size() == 0) {
                 System.out.println(combination + " is possible!");
             } else {
                 System.out.println("Combinations: " + combination);
                 System.out.println("Possibilities: " + containerSet);
+                System.out.println("Resulting intersection: " + containerSetClone);
             }
+            System.out.println("=================================================");
         }
     }
 }
