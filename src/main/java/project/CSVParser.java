@@ -16,6 +16,7 @@ public class CSVParser {
     static Map<String, String> row;
     static Map<String, Set<String>> formulas = new HashMap<>();
     static Map<String, Set<String>> result = new LinkedHashMap<>();
+    static Map<String, Set<String>> resultTakeTwo = new LinkedHashMap<>();
     static String[] headers = null;
 
     public static Map<String, Set<String>> readWithCsvMapReader() throws IOException {
@@ -31,7 +32,8 @@ public class CSVParser {
 //            final CellProcessor[] processors = getProcessors();
 
             while ((row = mapReader.read(headers)) != null) {
-//                System.out.println(String.format("lineNo=%s, rowNo=%s", mapReader.getLineNumber(), mapReader.getRowNumber()));
+                System.out.println(String.format("lineNo=%s, rowNo=%s, row=%s",
+                        mapReader.getLineNumber(), mapReader.getRowNumber(), row));
                 for (String header : headers) {
 //                    System.out.println(header + " is " + row.get(header));
                     if (formulas.get(header) != null) {
@@ -69,37 +71,42 @@ public class CSVParser {
         return result;
     }
 
-    /*private static CellProcessor[] getProcessors() {
+    public static Map<String, Set<String>> readCSV() throws IOException {
+        ICsvMapReader mapReader = null;
+        InputStream io = CSVParser.class.getResourceAsStream(CSV_FILENAME);
+        Reader featIO = new InputStreamReader(io);
+        try {
+            mapReader = new CsvMapReader(featIO, CsvPreference.TAB_PREFERENCE);
 
-        final CellProcessor[] processors = new CellProcessor[]{
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull(), // each column must be unique
-                new NotNull() // each column must be unique
-        };
+            // the header columns are used as the keys to the Map
 
-        return processors;
+            headers = mapReader.getHeader(true);
+//            final CellProcessor[] processors = getProcessors();
+
+            while ((row = mapReader.read(headers)) != null) {
+                /*System.out.println(String.format("lineNo=%s, rowNo=%s, row=%s",
+                        mapReader.getLineNumber(), mapReader.getRowNumber(), row));*/
+                Set<String> allRowPossibilities = new LinkedHashSet<>();
+                for (String header : headers) {
+                    if (row.get(header).equalsIgnoreCase("x")) {
+                        allRowPossibilities.add(header);
+                    }
+                }
+                resultTakeTwo.put(headers[mapReader.getRowNumber()-2], allRowPossibilities);
+            }
+        } finally {
+            if (mapReader != null) {
+                mapReader.close();
+            }
+        }
+        return resultTakeTwo;
     }
-*/
+
     public static void main(String[] args) {
         try {
-            System.out.println(readWithCsvMapReader());
+//            System.out.println(readCSV());
+            Map<String, Set<String>> bolex = readCSV();
+            bolex.keySet().stream().forEach(e->System.out.println(e + "=" + bolex.get(e)));
         } catch (IOException e) {
             e.printStackTrace();
         }
