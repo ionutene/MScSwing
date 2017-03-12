@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            Map<String, Set<String>> formulas = CSVParser.readWithCsvMapReader();
+            Map<String, Set<String>> formulas = CSVParser.readCSV();
 //            System.out.println(formulas);
             Combinations combinations = new Combinations(formulas.keySet());
             combinations.doAllNonRepetitiveCombinationsBetweenIndices(2, 2);

@@ -19,7 +19,7 @@ public class Combinations {
 
     private void initOriginalElements() {
         for (String key : keys) {
-            Set<String> tempSet = new HashSet<>();
+            Set<String> tempSet = new LinkedHashSet<>();
             tempSet.add(key);
             originalElements.add(tempSet);
         }
