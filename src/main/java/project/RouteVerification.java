@@ -1,8 +1,6 @@
 package project;
 
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class RouteVerification {
 
@@ -15,7 +13,8 @@ public class RouteVerification {
 		this.routePossibilities = routePossibilities;
 	}
 
-	public void doRouteVerifications() {
+	public ArrayList<String> doRouteVerifications() {
+		ArrayList<String> returnValue= new ArrayList<>();
 		for (Set<String> combination : finalCombinations) {
 			Set<String> containerSet = new LinkedHashSet<>();
 			Set<String> combinationClone = new LinkedHashSet<>(combination);
@@ -27,6 +26,7 @@ public class RouteVerification {
 //            System.out.println("=================================================");
 			if (containerSetClone.size() == 0) {
 				System.out.println(index++ + ". "+combination + " is possible!");
+			returnValue.add(combination.toString());
 			} else {
 			   /* System.out.println("Combinations: " + combination);
                 System.out.println("Possibilities: " + containerSet);
@@ -34,5 +34,6 @@ public class RouteVerification {
 			}
 //            System.out.println("=================================================");
 		}
+		return returnValue;
 	}
 }
