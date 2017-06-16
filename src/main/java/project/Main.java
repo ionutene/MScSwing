@@ -44,7 +44,7 @@ public class Main extends Frame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		try {
 			int from = Integer.parseInt(tf1.getText());
-			int to = Integer.parseInt(tf1.getText());
+			int to = Integer.parseInt(tf2.getText());
 			try {
 				long now = System.currentTimeMillis();
 				Map<String, Set<String>> formulas = CSVParser.readCSV();
@@ -53,28 +53,37 @@ public class Main extends Frame implements ActionListener {
 				RouteVerification routeVerification = new RouteVerification(combinations.getFinalElements(), formulas);
 				ArrayList<String> returnValue = routeVerification.doRouteVerifications();
 
-				JFrame f= new JFrame();
-				JFrame l= new JFrame();
+
+
+				JFrame f = new JFrame();
+
 				DefaultListModel<String> l1 = new DefaultListModel<>();
-				for (String a:returnValue) {
+				for (String a : returnValue) {
 					l1.addElement(a);
 				}
-
-
 				JList<String> list = new JList<>(l1);
-				list.setBounds(100,100, 75,175);
-				f.add(list);
-				f.setSize(400,400);
+				JScrollPane scrollBar1 = new JScrollPane();
+
+
+
+				list.setBounds(100, 100, 75, 175);
+				scrollBar1.setBounds(75, 100, 225, 175);
+				scrollBar1.setViewportView(list);
+				f.add(scrollBar1);
+				f.setSize(400, 400);
 				f.setLayout(null);
 				f.setVisible(true);
-				l.setResizable(true);
-//				l.
-				final JLabel label = new JLabel();
-				label.setBounds(50,100, 75,75);
-				label.setSize(500,100);
+				f.setResizable(true);
+
+				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // EDIT
+
+
+				JLabel label = new JLabel();
+				label.setBounds(150, 300, 75, 75);
+				label.setSize(500, 100);
 				String data = "Totul a durat: " + (System.currentTimeMillis() - now) + " ms";
 				label.setText(data);
-
+				f.add(label);
 
 				System.out.println();
 
