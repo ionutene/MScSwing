@@ -65,7 +65,6 @@ public class Main extends Frame implements ActionListener {
 				JScrollPane scrollBar1 = new JScrollPane();
 
 
-
 				list.setBounds(100, 100, 75, 175);
 				scrollBar1.setBounds(75, 100, 225, 175);
 				scrollBar1.setViewportView(list);
