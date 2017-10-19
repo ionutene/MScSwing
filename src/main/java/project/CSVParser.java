@@ -13,29 +13,25 @@ import java.util.*;
 public class CSVParser {
 
 	private static final String CSV_FILENAME = "/file.txt";
-	static Map<String, String> row;
-	static Map<String, Set<String>> formulas = new HashMap<>();
-	static Map<String, Set<String>> result = new LinkedHashMap<>();
-	static Map<String, Set<String>> resultTakeTwo = new LinkedHashMap<>();
-	static String[] headers = null;
+	private static Map<String, String> row;
+	private static Map<String, Set<String>> formulas = new HashMap<>();
+	private static Map<String, Set<String>> result = new LinkedHashMap<>();
+	private static Map<String, Set<String>> resultTakeTwo = new LinkedHashMap<>();
+	private static String[] headers = null;
 
-	public static Map<String, Set<String>> readWithCsvMapReader() throws IOException {
+	static Map<String, Set<String>> readWithCsvMapReader() throws IOException {
 		ICsvMapReader mapReader = null;
 		InputStream io = CSVParser.class.getResourceAsStream(CSV_FILENAME);
 		Reader featIO = new InputStreamReader(io);
 		try {
 			mapReader = new CsvMapReader(featIO, CsvPreference.TAB_PREFERENCE);
 
-			// the header columns are used as the keys to the Map
-
 			headers = mapReader.getHeader(true);
-//            final CellProcessor[] processors = getProcessors();
 
 			while ((row = mapReader.read(headers)) != null) {
 				System.out.println(String.format("lineNo=%s, rowNo=%s, row=%s",
 						mapReader.getLineNumber(), mapReader.getRowNumber(), row));
 				for (String header : headers) {
-//                    System.out.println(header + " is " + row.get(header));
 					if (formulas.get(header) != null) {
 						Set<String> oldKeys = formulas.get(header);
 						if (row.get(header).equalsIgnoreCase("x")) {
@@ -71,7 +67,7 @@ public class CSVParser {
 		return result;
 	}
 
-	public static Map<String, Set<String>> readCSV() throws IOException {
+	static Map<String, Set<String>> readCSV() throws IOException {
 		ICsvMapReader mapReader = null;
 		InputStream io = CSVParser.class.getResourceAsStream(CSV_FILENAME);
 		Reader featIO = new InputStreamReader(io);
@@ -81,11 +77,8 @@ public class CSVParser {
 			// the header columns are used as the keys to the Map
 
 			headers = mapReader.getHeader(true);
-//            final CellProcessor[] processors = getProcessors();
 
 			while ((row = mapReader.read(headers)) != null) {
-				/*System.out.println(String.format("lineNo=%s, rowNo=%s, row=%s",
-                        mapReader.getLineNumber(), mapReader.getRowNumber(), row));*/
 				Set<String> allRowPossibilities = new LinkedHashSet<>();
 				for (String header : headers) {
 					if (row.get(header).equalsIgnoreCase("x")) {
@@ -104,9 +97,8 @@ public class CSVParser {
 
 	public static void main(String[] args) {
 		try {
-//            System.out.println(readCSV());
 			Map<String, Set<String>> bolex = readCSV();
-			bolex.keySet().stream().forEach(e -> System.out.println(e + "=" + bolex.get(e)));
+			bolex.keySet().forEach(e -> System.out.println(e + "=" + bolex.get(e)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

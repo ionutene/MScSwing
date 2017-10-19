@@ -10,7 +10,7 @@ public class Combinations {
 	private Set<Set<String>> originalElements;
 	private Set<Set<String>> finalElements;
 
-	public Combinations(Set<String> keys) {
+	Combinations(Set<String> keys) {
 		this.keys = keys;
 		this.originalElements = new LinkedHashSet<>();
 		this.finalElements = new LinkedHashSet<>();
@@ -25,7 +25,7 @@ public class Combinations {
 		}
 	}
 
-	public void doAllNonRepetitiveCombinationsBetweenIndices(int startPoint, int endPoint) {
+	void doAllNonRepetitiveCombinationsBetweenIndices(int startPoint, int endPoint) {
 		for (int index = startPoint; index <= endPoint; index++) {
 			Set<Set<String>> result = getAllCombinations(getOriginalElements(), index);
 /*            System.out.println("=========");
@@ -37,11 +37,11 @@ public class Combinations {
 		}
 	}
 
-	public Set<Set<String>> getOriginalElements() {
+	private Set<Set<String>> getOriginalElements() {
 		return originalElements;
 	}
 
-	public Set<Set<String>> getFinalElements() {
+	Set<Set<String>> getFinalElements() {
 		return finalElements;
 	}
 
@@ -76,20 +76,16 @@ public class Combinations {
 		try {
 			combinations = new Combinations(CSVParser.readWithCsvMapReader().keySet());
 			combinations.initOriginalElements();
-//            primordialSet.addAll(CSVParser.readWithCsvMapReader().keySet());
-/*            for (String key : primordialSet) {
-                Set<String> tempSet = new LinkedHashSet<>();
-                tempSet.add(key);
-                theSun.add(tempSet);
-            }*/
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		for (int index = 1; index <= 3; index++) {
+			assert combinations != null;
 			Set<Set<String>> result = combinations.getAllCombinations(combinations.getOriginalElements(), index);
 			System.out.println("=========");
-			result.stream().forEach(e -> System.out.println(e));
+			result.forEach(System.out::println);
 		}
 
 	}
